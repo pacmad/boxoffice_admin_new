@@ -1,0 +1,89 @@
+ <?php
+        include '../shared/menu.php';
+
+    ?>
+		<!-- main content start-->
+         <?php
+        require '../admin_class.php';
+        $obj=new movie_booking();
+        $result=$obj->getAllShow();
+    ?>
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="tables">
+					
+					<div class="bs-example widget-shadow" data-example-id="hoverable-table"> 
+						<h4>Hover Rows Table:</h4>
+						<table class="table table-hover"> 
+                        <thead> 
+                            <tr> 
+  
+                                    <th>Movie Name</th>
+                                    <th>Movie Image</th>
+                                    <th>Theater name</th>
+                                    <th>Theater Address</th>
+                                    <th>Start Time</th>
+                                    <th>Date</th>
+                                    <th>Price</th>
+                                    <th>Screen No</th>
+                             </tr> 
+                         </thead> 
+                         <tbody> 
+                                 <?php
+              while($row=$result->fetch_assoc())
+              {
+                    echo '<tr>'; 
+                    echo '<td>'. $row["Movie_name"] .'</td>';
+                     echo '<td>'. $row["Img_path"] .'</td>';
+                    echo '<td>'. $row["theater_name"] .'</td>';
+                    echo '<td>'. $row["theater_add"] .'</td>'; 
+                    echo '<td>'. $row["Start_time"] .'</td>';
+                    echo '<td>'. $row["Date"] .'</td>';
+                    echo '<td>'. $row["Price"] .'</td>';
+                    echo '<td>'. $row["fk_Screen_id"] .'</td>';
+                         echo '<td><a href="deleteShow.php?id='. $row["pk_Show_id"].'"><span class="glyphicon glyphicon-trash"></span></a> | <a href="showUpdate.php?id='. $row["pk_Show_id"].'"><span class="glyphicon glyphicon-pencil"></span></a></td>';
+               echo '</tr>';
+              }
+            ?>
+                             </tbody> 
+                             </table>
+					</div>
+					
+				
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		<div class="footer">
+		   <p>&copy; 2016 Novus Admin Panel. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">w3layouts</a></p>
+		</div>
+        <!--//footer-->
+	</div>
+	<!-- Classie -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+				
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+			
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+		</script>
+	<!--scrolling js-->
+	<script src="../js/jquery.nicescroll.js"></script>
+	<script src="../js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../js/bootstrap.js"> </script>
+</body>
+</html>
